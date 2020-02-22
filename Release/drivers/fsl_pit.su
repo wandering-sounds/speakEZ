@@ -1,0 +1,3 @@
+fsl_pit.c:68:6:PIT_Init	4	static
+fsl_pit.c:106:6:PIT_Deinit	0	static
+fsl_pit.c:134:10:PIT_GetLifetimeTimerCount	4	static

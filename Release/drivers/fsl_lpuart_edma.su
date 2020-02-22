@@ -1,0 +1,9 @@
+fsl_lpuart_edma.c:112:13:LPUART_SendEDMACallback	16	static
+fsl_lpuart_edma.c:139:13:LPUART_ReceiveEDMACallback	16	static
+fsl_lpuart_edma.c:171:6:LPUART_TransferCreateHandleEDMA	32	static
+fsl_lpuart_edma.c:237:10:LPUART_SendEDMA	64	static
+fsl_lpuart_edma.c:296:10:LPUART_ReceiveEDMA	64	static
+fsl_lpuart_edma.c:349:6:LPUART_TransferAbortSendEDMA	8	static
+fsl_lpuart_edma.c:371:6:LPUART_TransferAbortReceiveEDMA	8	static
+fsl_lpuart_edma.c:397:10:LPUART_TransferGetReceiveCountEDMA	16	static
+fsl_lpuart_edma.c:428:10:LPUART_TransferGetSendCountEDMA	16	static

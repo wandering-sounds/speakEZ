@@ -1,0 +1,14 @@
+usb_host_ehci.c:2303:21:USB_HostEhciQhInit.isra.12	48	static
+usb_host_ehci.c:1148:13:USB_HostBandwidthHsHostComputeCurrentHsAll.isra.14.part.15	32	static
+usb_host_ehci.c:2144:21:USB_HostEhciQhQtdListDeinit.isra.10	40	static
+usb_host_ehci.c:3504:6:USB_HostEhciTransactionDone	56	static
+usb_host_ehci.c:4056:7:USB_EhciGetValidFrameList	4	static
+usb_host_ehci.c:4091:14:USB_HostEhciCreate	32	static
+usb_host_ehci.c:4256:14:USB_HostEhciDestory	8	static
+usb_host_ehci.c:4290:14:USB_HostEhciOpenPipe	152	static
+usb_host_ehci.c:4419:14:USB_HostEhciClosePipe	24	static
+usb_host_ehci.c:4480:14:USB_HostEhciWritePipe	48	static
+usb_host_ehci.c:4529:14:USB_HostEhciReadpipe	48	static
+usb_host_ehci.c:4536:14:USB_HostEhciIoctl	48	static
+usb_host_ehci.c:4605:6:USB_HostEhciTaskFunction	64	static
+usb_host_ehci.c:4672:6:USB_HostEhciIsrFunction	16	static

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<infoList vendor="NXP">
+<info name="MIMXRT1011xxxxx" chip="MIMXRT1011xxxxx" >
+<chip>
+<name>MIMXRT1011xxxxx</name>
+<family>MIMXRT1010</family>
+<vendor>NXP</vendor>
+<memory can_program="true" id="Flash" is_ro="true" size="0" type="Flash"/>
+<memory id="RAM" size="128" type="RAM"/>
+<memoryInstance derived_from="Flash" driver="MIMXRT1010_SFDP_QSPI.cfx" id="BOARD_FLASH" location="0x60000000" size="0x1000000"/>
+<memoryInstance derived_from="RAM" id="SRAM_DTC" location="0x20000000" size="0x8000"/>
+<memoryInstance derived_from="RAM" id="SRAM_ITC" location="0x0" size="0x8000"/>
+<memoryInstance derived_from="RAM" id="SRAM_OC" location="0x20200000" size="0x8000"/>
+<memoryInstance derived_from="RAM" id="NCACHE_REGION" location="0x20208000" size="0x8000"/>
+</chip>
+<processor>
+<name gcc_name="cortex-m7">Cortex-M7</name>
+<family>Cortex-M</family>
+</processor>
+</info>
+</infoList>
+

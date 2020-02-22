@@ -1,0 +1,9 @@
+usb_host_framework.c:136:14:USB_HostCh9RequestCommon	16	static
+usb_host_framework.c:158:14:USB_HostStandardGetStatus	16	static
+usb_host_framework.c:190:14:USB_HostStandardSetClearFeature	16	static
+usb_host_framework.c:216:14:USB_HostStandardSetAddress	16	static
+usb_host_framework.c:229:14:USB_HostStandardSetGetDescriptor	16	static
+usb_host_framework.c:244:14:USB_HostStandardGetInterface	24	static
+usb_host_framework.c:259:14:USB_HostStandardSetInterface	16	static
+usb_host_framework.c:274:14:USB_HostStandardSyncFrame	24	static
+usb_host_framework.c:289:14:USB_HostRequestControl	24	static

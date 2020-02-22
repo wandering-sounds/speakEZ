@@ -1,0 +1,7 @@
+usbmidi.c:124:13:midiInterruptRecvCallback	8	static
+usbmidi.c:81:13:midiControlCallback	8	static
+usbmidi.c:38:6:USB_HostClockInit	16	static
+usbmidi.c:50:6:USB_HostIsrEnable	0	static
+usbmidi.c:66:6:USB_HostTaskFn	0	static
+usbmidi.c:175:6:USB_HostMidiTask	24	static
+usbmidi.c:266:14:USB_HostMidiEvent	56	static

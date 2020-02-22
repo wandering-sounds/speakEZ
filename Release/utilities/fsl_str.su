@@ -1,0 +1,2 @@
+fsl_str.c:347:5:StrFormatPrintf	88	static
+fsl_str.c:873:5:StrFormatScanf	36	static

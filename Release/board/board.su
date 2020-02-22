@@ -1,0 +1,4 @@
+board.c:25:10:BOARD_DebugConsoleSrcFreq	8	static
+board.c:44:6:BOARD_InitDebugConsole	8	static
+board.c:52:6:BOARD_ConfigMPU	16	static
+board.c:281:6:SystemInitHook	0	static

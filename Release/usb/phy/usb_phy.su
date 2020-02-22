@@ -1,0 +1,5 @@
+usb_phy.c:14:7:USB_EhciPhyGetBase	8	static
+usb_phy.c:73:10:USB_EhciPhyInit	24	static
+usb_phy.c:136:10:USB_EhciLowPowerPhyInit	24	static
+usb_phy.c:195:6:USB_EhciPhyDeinit	8	static
+usb_phy.c:223:6:USB_EhcihostPhyDisconnectDetectCmd	8	static

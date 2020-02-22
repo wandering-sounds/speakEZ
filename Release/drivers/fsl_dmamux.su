@@ -1,0 +1,2 @@
+fsl_dmamux.c:72:6:DMAMUX_Init	0	static
+fsl_dmamux.c:86:6:DMAMUX_Deinit	0	static

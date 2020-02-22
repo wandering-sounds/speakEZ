@@ -1,0 +1,8 @@
+peripherals.c:274:6:SAI_1_init	24	static
+peripherals.c:322:6:GPIO_1_init	0	static
+peripherals.c:379:6:LPUART_1_init	0	static
+peripherals.c:460:6:I2C_init	0	static
+peripherals.c:487:6:GPIO_2_init	0	static
+peripherals.c:528:6:PIT_1_init	8	static
+peripherals.c:546:6:BOARD_InitPeripherals	32	static
+peripherals.c:560:6:BOARD_InitBootPeripherals	32	static

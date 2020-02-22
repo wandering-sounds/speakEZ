@@ -1,0 +1,12 @@
+usb_host_devices.c:413:21:USB_HostProcessCallback	40	static
+usb_host_devices.c:316:21:USB_HostProcessState	32	static
+usb_host_devices.c:205:13:USB_HostEnumerationTransferCallback	16	static
+usb_host_devices.c:681:13:USB_HostReleaseDeviceResource	24	static
+usb_host_devices.c:974:14:USB_HostAttachDevice	48	static
+usb_host_devices.c:1171:14:USB_HostDetachDeviceInternal	16	static
+usb_host_devices.c:1138:14:USB_HostDetachDevice	16	static
+usb_host_devices.c:1206:9:USB_HostGetDeviceAttachState	0	static
+usb_host_devices.c:1211:14:USB_HostValidateDevice	0	static
+usb_host_devices.c:1249:14:USB_HostOpenDeviceInterface	24	static
+usb_host_devices.c:1299:14:USB_HostCloseDeviceInterface	24	static
+usb_host_devices.c:1382:14:USB_HostRemoveDevice	16	static
