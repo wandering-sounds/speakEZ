@@ -86,18 +86,12 @@ volatile _Bool g_demoMidiPacketRecvFlag = 0;
  *  - Are OPEN-DRAIN
  *  - Have Software Input On ENABLED
  *  - Have 22kOhm pull-ups ENABLED
- *  - Have Pull/Keeper DISABLED
+ *  - Have Pull/Keeper as Pull
  * This function can be ignored and taken out of your codebase if
  * you are initializing your own CODEC elsewhere.
  *
  * Below is the intended I2C bitstream per the datasheet:
  * |ST|SA6 SA5 SA4 SA3 SA2 SA1 SA0 Rd/Wr|Ack|A6 A5 A4 A3 A2 A1 A0 D8|Ack|D7 D6 D5 D4 D3 D2 D1 D0|Ack|SP|
- *
- * The LPI2C transfer function already covers the slave address
- * and Rd/Wr bit (Byte 0).
- * Byte 1 starts with A6..0 of the 7-bit control register.
- * The last bit in Byte 1 is D8 of the 9-bit data word.
- * Byte 2 includes D7..0 of the 9-bit data word.
  *
  * Return values:
  * kStatus_Success Data was received successfully.
@@ -602,7 +596,7 @@ void releaseKey(wavetableSynth *synth, uint32_t keyIndex) {
  */
 void toggleActiveWavetable(wavetableSynth *synth) {
 
-	g_activeWavetable = (g_activeWavetable + 1) % NUM_WAVETABLES;
+	if(++g_activeWavetable >= NUM_WAVETABLES) g_activeWavetable = 0;
 
 	switch(g_activeWavetable) {
 
@@ -650,7 +644,7 @@ void toggleDemoChord(wavetableSynth *synth) {
 		releaseKey(synth, demoChords[g_activeDemoChord][i]);
 	}
 
-	if(++g_activeDemoChord == NUM_DEMO_CHORDS) g_activeDemoChord = 0;
+	if(++g_activeDemoChord >= NUM_DEMO_CHORDS) g_activeDemoChord = 0;
 
 	playDemoChord(synth, g_activeDemoChord);
 
@@ -760,7 +754,6 @@ void calculateBiquadCoeffs(float *coeffs, float fC, float fS, filter_type_t filt
 
 	default:
 		break;
-
 	}
 
 		coeffs[0] = b0 / a0;
@@ -1276,7 +1269,7 @@ int main(void) {
 
         	setTxAudio(outputAudioBuffer);
 
-        	if(++voxDownsampleCount == kResample_Downsample_Rate) {
+        	if(++voxDownsampleCount >= kResample_Downsample_Rate) {
         		voxDownsampleCount = 0;
         	}
 

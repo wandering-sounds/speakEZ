@@ -6,7 +6,7 @@
  * Generated linker script file for MIMXRT1011xxxxx
  * Created from linkscript.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.23
- * MCUXpresso IDE v11.0.1 [Build 2563] [2019-09-01] on Feb 21, 2020 10:26:39 PM
+ * MCUXpresso IDE v11.0.1 [Build 2563] [2019-09-01] on Feb 24, 2020 5:53:32 PM
  */
 
 INCLUDE "speakEZ_Release_library.ld"
