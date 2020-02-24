@@ -59,9 +59,9 @@ BOARD_InitPins:
   - {pin_num: '9', peripheral: SAI1, signal: sai_tx_data0, pin_signal: GPIO_04, speed: MHZ_100}
   - {pin_num: '4', peripheral: SAI1, signal: sai_mclk, pin_signal: GPIO_08, direction: OUTPUT, slew_rate: Slow, speed: MHZ_100}
   - {pin_num: '11', peripheral: LPI2C1, signal: SCL, pin_signal: GPIO_02, software_input_on: Enable, open_drain: Enable, speed: MHZ_50, pull_keeper_select: Pull,
-    pull_keeper_enable: Disable, pull_up_down_config: Pull_Up_22K_Ohm}
+    pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_22K_Ohm}
   - {pin_num: '12', peripheral: LPI2C1, signal: SDA, pin_signal: GPIO_01, software_input_on: Enable, open_drain: Enable, speed: MHZ_50, pull_keeper_select: Pull,
-    pull_keeper_enable: Disable, pull_up_down_config: Pull_Up_22K_Ohm}
+    pull_keeper_enable: Enable, pull_up_down_config: Pull_Up_22K_Ohm}
   - {pin_num: '13', peripheral: GPIO1, signal: 'gpiomux_io, 00', pin_signal: GPIO_00, direction: INPUT, speed: MHZ_50}
   - {pin_num: '1', peripheral: GPIO1, signal: 'gpiomux_io, 11', pin_signal: GPIO_11, identifier: USER_LED, direction: OUTPUT, speed: MHZ_50}
   - {pin_num: '70', peripheral: GPIO2, signal: 'gpio_io, 05', pin_signal: GPIO_SD_05, direction: INPUT, gpio_interrupt: kGPIO_NoIntmode, software_input_on: Enable,
@@ -170,21 +170,21 @@ void BOARD_InitPins(void) {
                                                  Hyst. Enable Field: Hysteresis Disabled */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_01_LPI2C1_SDA,              /* GPIO_01 PAD functional properties : */
-      0xE820U);                               /* Slew Rate Field: Slow Slew Rate
+      0xF820U);                               /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: R0/4
                                                  Speed Field: low(50MHz)
                                                  Open Drain Enable Field: Open Drain Enabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Disabled
+                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
                                                  Pull Up / Down Config. Field: 22K Ohm Pull Up
                                                  Hyst. Enable Field: Hysteresis Disabled */
   IOMUXC_SetPinConfig(
       IOMUXC_GPIO_02_LPI2C1_SCL,              /* GPIO_02 PAD functional properties : */
-      0xE820U);                               /* Slew Rate Field: Slow Slew Rate
+      0xF820U);                               /* Slew Rate Field: Slow Slew Rate
                                                  Drive Strength Field: R0/4
                                                  Speed Field: low(50MHz)
                                                  Open Drain Enable Field: Open Drain Enabled
-                                                 Pull / Keep Enable Field: Pull/Keeper Disabled
+                                                 Pull / Keep Enable Field: Pull/Keeper Enabled
                                                  Pull / Keep Select Field: Pull
                                                  Pull Up / Down Config. Field: 22K Ohm Pull Up
                                                  Hyst. Enable Field: Hysteresis Disabled */

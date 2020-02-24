@@ -142,7 +142,7 @@
                         <pin_feature name="open_drain" value="Enable"/>
                         <pin_feature name="speed" value="MHZ_50"/>
                         <pin_feature name="pull_keeper_select" value="Pull"/>
-                        <pin_feature name="pull_keeper_enable" value="Disable"/>
+                        <pin_feature name="pull_keeper_enable" value="Enable"/>
                         <pin_feature name="pull_up_down_config" value="Pull_Up_22K_Ohm"/>
                      </pin_features>
                   </pin>
@@ -152,7 +152,7 @@
                         <pin_feature name="open_drain" value="Enable"/>
                         <pin_feature name="speed" value="MHZ_50"/>
                         <pin_feature name="pull_keeper_select" value="Pull"/>
-                        <pin_feature name="pull_keeper_enable" value="Disable"/>
+                        <pin_feature name="pull_keeper_enable" value="Enable"/>
                         <pin_feature name="pull_up_down_config" value="Pull_Up_22K_Ohm"/>
                      </pin_features>
                   </pin>
