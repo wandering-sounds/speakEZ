@@ -138,7 +138,7 @@ typedef struct _usbmidi_descriptor_endpoint
 /*! @brief USB-MIDI 32-bit Event Packet structure */
 typedef struct _usbmidi_event_packet
 {
-	uint8_t CCIN;				/* Byte 0 contains the cable number (first 4 bits) and code index number (last 4 bits) */
+	uint8_t CCIN;				/* Byte 0 contains the channel number (first 4 bits) and code index number (last 4 bits) */
 	uint8_t MIDI_0;				/* Byte 1 contains the first MIDI event byte */
 	uint8_t MIDI_1;				/* Byte 2 contains the second MIDI event byte */
 	uint8_t MIDI_2;				/* Byte 3 contains the final MIDI event byte */
@@ -162,26 +162,26 @@ typedef enum _usb_host_midi_run_state
 } usb_host_midi_run_state_t;
 
 
-enum _usbmidi_cable_number {
-	kUSBMIDI_Cable_0 = 0x0,
-	kUSBMIDI_Cable_1,
-	kUSBMIDI_Cable_2,
-	kUSBMIDI_Cable_3,
-	kUSBMIDI_Cable_4,
-	kUSBMIDI_Cable_5,
-	kUSBMIDI_Cable_6,
-	kUSBMIDI_Cable_7,
-	kUSBMIDI_Cable_8,
-	kUSBMIDI_Cable_9,
-	kUSBMIDI_Cable_10,
-	kUSBMIDI_Cable_11,
-	kUSBMIDI_Cable_12,
-	kUSBMIDI_Cable_13,
-	kUSBMIDI_Cable_14,
-	kUSBMIDI_Cable_15
-};
+typedef enum _usbmidi_channel_number {
+	kUSBMIDI_Channel_1 = 0x0,
+	kUSBMIDI_Channel_2,
+	kUSBMIDI_Channel_3,
+	kUSBMIDI_Channel_4,
+	kUSBMIDI_Channel_5,
+	kUSBMIDI_Channel_6,
+	kUSBMIDI_Channel_7,
+	kUSBMIDI_Channel_8,
+	kUSBMIDI_Channel_9,
+	kUSBMIDI_Channel_10,
+	kUSBMIDI_Channel_11,
+	kUSBMIDI_Channel_12,
+	kUSBMIDI_Channel_13,
+	kUSBMIDI_Channel_14,
+	kUSBMIDI_Channel_15,
+	kUSBMIDI_Channel_16
+} usbmidi_channel_number_t;
 
-enum _usbmidi_code_index_number {
+typedef enum _usbmidi_code_index_number {
 	kUSBMIDI_CIN_Misc = 0x0,
 	kUSBMIDI_CIN_Cable_Event,
 	kUSBMIDI_CIN_Two_Byte_Common_Msg,
@@ -197,8 +197,8 @@ enum _usbmidi_code_index_number {
 	kUSBMIDI_CIN_Program_Change,
 	kUSBMIDI_CIN_Channel_Pressure,
 	kUSBMIDI_CIN_Pitchbend_Change,
-	kUSBMIDI_CIN_Single_Byte
-};
+	kUSBMIDI_CIN_System_Message
+} usbmidi_code_index_number_t;
 
 enum _usbmidi_channel_mode {
 	kUSBMIDI_Ch_Mode_Omni_On_Polyphonic = 0x01,
@@ -207,7 +207,7 @@ enum _usbmidi_channel_mode {
 	kUSBMIDI_Ch_Mode_Omni_Off_Monophonic
 };
 
-enum _usbmidi_midi_ci_authority_level {
+typedef enum _usbmidi_midi_ci_authority_level {
 	kUSBMIDI_CI_Auth_Lvl_0x10		= 0x10U,
 	kUSBMIDI_CI_Auth_Lvl_0x11,
 	kUSBMIDI_CI_Auth_Lvl_0x12,
@@ -304,7 +304,7 @@ enum _usbmidi_midi_ci_authority_level {
 	kUSBMIDI_CI_Auth_Lvl_0x6D,
 	kUSBMIDI_CI_Auth_Lvl_0x6E,
 	kUSBMIDI_CI_Auth_Lvl_0x6F
-};
+} usbmidi_midi_ci_authority_level_t;
 
 
 /*! @brief USB host generic instance global variable */

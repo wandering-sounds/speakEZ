@@ -48,7 +48,8 @@ enum _speakEZ_synth_constants {
 	kSynth_Min_Audio_Level	= -3000000, // To protect the ears. -8388608 is true min
 	kSynth_Num_Keys			= 128U,
 	kSynth_Max_Velocity		= 127U,
-	kSynth_A3_Index			= 57U 	// freq index for A3 = 220 Hz
+	kSynth_A3_Index			= 57U, 	// freq index for A3 = 220 Hz
+	kSynth_Pbend_Semitones	= 2U	// number of semitones that can be bent up, or down
 };
 
 enum _speakEZ_audio_constants {
@@ -81,11 +82,14 @@ void getRxAudio(int32_t *audioBuffer);
  */
 typedef struct wavetableSynth {
 
-	float32_t freq[kSynth_Num_Keys];
-	float32_t phase[kSynth_Num_Keys];
-	float32_t phaseIncrement[kSynth_Num_Keys];
+	float freq[kSynth_Num_Keys];
+	float phase[kSynth_Num_Keys];
+	float phaseIncrement[kSynth_Num_Keys];
+	float pbendFactor;
 	uint32_t velocity[kSynth_Num_Keys];
 	int32_t *wavetable;
+
+	usbmidi_channel_number_t midiChannel;
 
 } wavetableSynth;
 
@@ -136,10 +140,11 @@ void toggleActiveWavetable(wavetableSynth *synth);
 void playDemoChord(wavetableSynth *synth, uint32_t chordNum);
 void toggleDemoChord(wavetableSynth *synth);
 
-void initSynth(wavetableSynth *synth, uint32_t numKeys, uint32_t indexA3, float freqA3);
+void initSynth(wavetableSynth *synth, uint32_t numKeys, uint32_t indexA3, float freqA3, usbmidi_channel_number_t chNum);
 int32_t playSynth(wavetableSynth *synth);
 void pressKey(wavetableSynth *synth, uint32_t keyIndex, uint32_t keyVelocity);
 void releaseKey(wavetableSynth *synth, uint32_t keyIndex);
+void updatePitchbend(wavetableSynth *synth, uint32_t pbLSB, uint32_t pbMSB);
 
 
 _Bool getSAI_RequestSynthUpdate();

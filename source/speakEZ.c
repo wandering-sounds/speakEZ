@@ -495,10 +495,11 @@ void setWavetableNovel(int32_t *inputWavetable, uint32_t tableLen) {
  *
  * Sets the values of freq and phaseIncrement for a wavetable synth,
  * and initializes the keyActive status and phase of all keys to 0.
+ * Sets the channel number and initial pitchbends.
  *
  * Playing a note without initializing the synth generates undefined behavior.
  */
-void initSynth(wavetableSynth *synth, uint32_t numKeys, uint32_t indexA3, float freqA3) {
+void initSynth(wavetableSynth *synth, uint32_t numKeys, uint32_t indexA3, float freqA3, usbmidi_channel_number_t chNum) {
 
 	assert(indexA3 <= numKeys);
 
@@ -516,6 +517,9 @@ void initSynth(wavetableSynth *synth, uint32_t numKeys, uint32_t indexA3, float 
 		synth->phase[i] = 0;
 		synth->velocity[i] = 0;
 	}
+
+	synth->midiChannel = chNum;
+	synth->pbendFactor = 1.0;
 
 }
 /*
@@ -552,7 +556,7 @@ int32_t playSynth(wavetableSynth *synth) {
 		if(audioOut > kSynth_Max_Audio_Level) audioOut = kSynth_Max_Audio_Level;
 		if(audioOut < kSynth_Min_Audio_Level) audioOut = kSynth_Min_Audio_Level;
 
-		synth->phase[i] += synth->phaseIncrement[i];
+		synth->phase[i] += synth->phaseIncrement[i] * synth->pbendFactor;
 		if(synth->phase[i] >= kSynth_Table_Length) {
 			synth->phase[i] = synth->phase[i] - kSynth_Table_Length;
 		}
@@ -585,6 +589,20 @@ void releaseKey(wavetableSynth *synth, uint32_t keyIndex) {
 	if(keyIndex < kSynth_Num_Keys) {
 		synth->velocity[keyIndex] = 0;
 	}
+
+}
+/*
+ * updatePitchbend
+ *
+ * Updates the pbendFactor for the specified synth
+ */
+void updatePitchbend(wavetableSynth *synth, uint32_t pbLSB, uint32_t pbMSB) {
+
+	uint32_t pbVal = (pbMSB << 7) | (pbLSB);
+
+	float scaledPbVal = ((float)pbVal / 8192.0f - 1.0f);
+
+	synth->pbendFactor = powf(2.0f, scaledPbVal / 12.0f);
 
 }
 
@@ -1074,15 +1092,26 @@ void USB_OTG1_IRQHandler(void) {
 /*
  * handleMidiEventPacket
  *
+ * Must be called for each synthesizer. Confirms the associated channel number.
+ *
  * Presses or releases keys, using MIDI commands "Note_On" and "Note_Off".
- * Currently ignores cable number. Future functionality pending...
- * Should only be called when there is valid data in event, or else
+ * Updates channel pitchbend.
+ * Future functionality pending...
+ * Should only be called when there is valid data in event. Otherwise,
  * we risk redundant event handling.
  */
 void handleMidiEventPacket(wavetableSynth *synth, usbmidi_event_packet_t event) {
 
-	uint8_t eventCIN = event.CCIN & 0x0F;
-	//uint8_t cableNum = (event.cableAndCIN & 0xF0) >> 4;
+	usbmidi_code_index_number_t eventCIN = event.CCIN & 0x0F;
+	usbmidi_channel_number_t chNum = (event.CCIN & 0xF0) >> 4;
+
+	uint32_t dataByte0 = event.MIDI_0;
+	uint32_t dataByte1 = event.MIDI_1;
+	uint32_t dataByte2 = event.MIDI_2;
+
+	if(synth->midiChannel != chNum) return;
+
+
 
 	switch(eventCIN) {
 	case kUSBMIDI_CIN_Misc:
@@ -1102,10 +1131,10 @@ void handleMidiEventPacket(wavetableSynth *synth, usbmidi_event_packet_t event) 
 	case kUSBMIDI_CIN_SysEx_Ends_Three_Bytes:
 		break;
 	case kUSBMIDI_CIN_Note_Off:
-		releaseKey(synth, event.MIDI_1);
+		releaseKey(synth, dataByte1);
 		break;
 	case kUSBMIDI_CIN_Note_On:
-		pressKey(synth, event.MIDI_1, event.MIDI_2);
+		pressKey(synth, dataByte1, dataByte2);
 		break;
 	case kUSBMIDI_CIN_Poly_Keypress:
 		break;
@@ -1116,8 +1145,9 @@ void handleMidiEventPacket(wavetableSynth *synth, usbmidi_event_packet_t event) 
 	case kUSBMIDI_CIN_Channel_Pressure:
 		break;
 	case kUSBMIDI_CIN_Pitchbend_Change:
+		updatePitchbend(synth, dataByte1, dataByte2);
 		break;
-	case kUSBMIDI_CIN_Single_Byte:
+	case kUSBMIDI_CIN_System_Message:
 		break;
 	default:
 		break;
@@ -1147,7 +1177,7 @@ int main(void) {
     setWavetableNovel(wavetableNovel, kSynth_Table_Length);
 
     wavetableSynth demoSynth;
-    initSynth(&demoSynth, kSynth_Num_Keys, kSynth_A3_Index, TONE_A3_HZ);
+    initSynth(&demoSynth, kSynth_Num_Keys, kSynth_A3_Index, TONE_A3_HZ, kUSBMIDI_Channel_1);
     demoSynth.wavetable = &wavetableSaw[0];
     g_activeWavetable = 2;
 
