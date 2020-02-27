@@ -138,7 +138,7 @@ typedef struct _usbmidi_descriptor_endpoint
 /*! @brief USB-MIDI 32-bit Event Packet structure */
 typedef struct _usbmidi_event_packet
 {
-	uint8_t CCIN;				/* Byte 0 contains the channel number (first 4 bits) and code index number (last 4 bits) */
+	uint8_t CCIN;				/* Byte 0 contains the cable number (first 4 bits) and code index number (last 4 bits) */
 	uint8_t MIDI_0;				/* Byte 1 contains the first MIDI event byte */
 	uint8_t MIDI_1;				/* Byte 2 contains the second MIDI event byte */
 	uint8_t MIDI_2;				/* Byte 3 contains the final MIDI event byte */
@@ -162,6 +162,27 @@ typedef enum _usb_host_midi_run_state
 } usb_host_midi_run_state_t;
 
 
+/* cable numbers define a MIDI endpoint */
+typedef enum _usbmidi_cable_number {
+	kUSBMIDI_Cable_0 = 0x0,
+	kUSBMIDI_Cable_1,
+	kUSBMIDI_Cable_2,
+	kUSBMIDI_Cable_3,
+	kUSBMIDI_Cable_4,
+	kUSBMIDI_Cable_5,
+	kUSBMIDI_Cable_6,
+	kUSBMIDI_Cable_7,
+	kUSBMIDI_Cable_8,
+	kUSBMIDI_Cable_9,
+	kUSBMIDI_Cable_10,
+	kUSBMIDI_Cable_11,
+	kUSBMIDI_Cable_12,
+	kUSBMIDI_Cable_13,
+	kUSBMIDI_Cable_14,
+	kUSBMIDI_Cable_15
+} usbmidi_cable_number_t;
+
+/* multiple channels per "cable" */
 typedef enum _usbmidi_channel_number {
 	kUSBMIDI_Channel_1 = 0x0,
 	kUSBMIDI_Channel_2,

@@ -602,7 +602,7 @@ void updatePitchbend(wavetableSynth *synth, uint32_t pbLSB, uint32_t pbMSB) {
 
 	float scaledPbVal = ((float)pbVal / 8192.0f - 1.0f);
 
-	synth->pbendFactor = powf(2.0f, scaledPbVal / 12.0f);
+	synth->pbendFactor = powf(2.0f, scaledPbVal * (float)kSynth_Pbend_Semitones / 12.0f);
 
 }
 
@@ -1092,25 +1092,26 @@ void USB_OTG1_IRQHandler(void) {
 /*
  * handleMidiEventPacket
  *
- * Must be called for each synthesizer. Confirms the associated channel number.
+ * Must be called for each synthesizer. Should only be called when there is
+ * valid data in event. Otherwise, we risk redundant event handling.
  *
+ * Confirms the associated channel number.
  * Presses or releases keys, using MIDI commands "Note_On" and "Note_Off".
  * Updates channel pitchbend.
  * Future functionality pending...
- * Should only be called when there is valid data in event. Otherwise,
- * we risk redundant event handling.
  */
 void handleMidiEventPacket(wavetableSynth *synth, usbmidi_event_packet_t event) {
 
 	usbmidi_code_index_number_t eventCIN = event.CCIN & 0x0F;
-	usbmidi_channel_number_t chNum = (event.CCIN & 0xF0) >> 4;
+	//usbmidi_cable_number_t cable = (event.CCIN & 0xF0) >> 4;
 
-	uint32_t dataByte0 = event.MIDI_0;
-	uint32_t dataByte1 = event.MIDI_1;
-	uint32_t dataByte2 = event.MIDI_2;
+	uint8_t eventByte0 = event.MIDI_0;
+	usbmidi_channel_number_t chNum = eventByte0 & 0x0F;
+
+	uint8_t eventByte1 = event.MIDI_1;
+	uint8_t eventByte2 = event.MIDI_2;
 
 	if(synth->midiChannel != chNum) return;
-
 
 
 	switch(eventCIN) {
@@ -1131,10 +1132,10 @@ void handleMidiEventPacket(wavetableSynth *synth, usbmidi_event_packet_t event) 
 	case kUSBMIDI_CIN_SysEx_Ends_Three_Bytes:
 		break;
 	case kUSBMIDI_CIN_Note_Off:
-		releaseKey(synth, dataByte1);
+		releaseKey(synth, eventByte1);
 		break;
 	case kUSBMIDI_CIN_Note_On:
-		pressKey(synth, dataByte1, dataByte2);
+		pressKey(synth, eventByte1, eventByte2);
 		break;
 	case kUSBMIDI_CIN_Poly_Keypress:
 		break;
@@ -1145,7 +1146,7 @@ void handleMidiEventPacket(wavetableSynth *synth, usbmidi_event_packet_t event) 
 	case kUSBMIDI_CIN_Channel_Pressure:
 		break;
 	case kUSBMIDI_CIN_Pitchbend_Change:
-		updatePitchbend(synth, dataByte1, dataByte2);
+		updatePitchbend(synth, eventByte1, eventByte2);
 		break;
 	case kUSBMIDI_CIN_System_Message:
 		break;

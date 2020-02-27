@@ -78,7 +78,7 @@ void getRxAudio(int32_t *audioBuffer);
  * Designed to contain all the information necessary
  * to keep track of the current state of the audio generator.
  *
- * Essentially creates a digital keyboard.
+ * Essentially creates a virtual MIDI keyboard.
  */
 typedef struct wavetableSynth {
 

@@ -28,5 +28,5 @@ speakEZ.c:979:6:PIT_IRQHandler	0	static
 speakEZ.c:997:7:getSW4Pressed	0	static
 speakEZ.c:1055:6:USB_HostApplicationInit	8	static
 speakEZ.c:1088:6:USB_OTG1_IRQHandler	0	static
-speakEZ.c:1102:6:handleMidiEventPacket	16	static
-speakEZ.c:1162:5:main	2920	static
+speakEZ.c:1103:6:handleMidiEventPacket	16	static
+speakEZ.c:1164:5:main	2920	static
